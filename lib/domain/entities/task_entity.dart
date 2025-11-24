@@ -1,7 +1,7 @@
 class TaskEntity {
   final String? id;
   final String title;
-  final String subtitle;
+  final String description;
   final DateTime createdAt;
   final DateTime? updatedAt;
   final bool isDone;
@@ -9,7 +9,7 @@ class TaskEntity {
   const TaskEntity({
     this.id,
     required this.title,
-    required this.subtitle,
+    required this.description,
     required this.createdAt,
     this.updatedAt,
     required this.isDone,
