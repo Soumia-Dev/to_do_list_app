@@ -5,7 +5,7 @@ import '../models/task_model.dart';
 
 class TaskLocalDataSourceImp implements TaskLocalDataSource {
   final Box<TaskModel> box;
-  TaskLocalDataSourceImp(this.box);
+  TaskLocalDataSourceImp({required this.box});
 
   @override
   Future<List<TaskModel>> getTasks() async {
@@ -23,7 +23,7 @@ class TaskLocalDataSourceImp implements TaskLocalDataSource {
   }
 
   @override
-  Future<void> deleteTask(String id) async {
+  Future<void> deleteTask(int id) async {
     await box.delete(id);
   }
 }
