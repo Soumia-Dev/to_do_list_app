@@ -1,21 +1,6 @@
-part of 'task_bloc.dart';
+part of 'get_task_bloc.dart';
 
 @immutable
-sealed class TaskEvent {}
+sealed class GetTaskEvent {}
 
-class GetTasksEvent extends TaskEvent {}
-
-class AddTasksEvent extends TaskEvent {
-  final TaskEntity taskEntity;
-  AddTasksEvent({required this.taskEntity});
-}
-
-class UpdateTasksEvent extends TaskEvent {
-  final TaskEntity taskEntity;
-  UpdateTasksEvent({required this.taskEntity});
-}
-
-class DeleteTasksEvent extends TaskEvent {
-  final int id;
-  DeleteTasksEvent({required this.id});
-}
+class GetTasksEvent extends GetTaskEvent {}
