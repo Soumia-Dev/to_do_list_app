@@ -12,15 +12,21 @@ class GetTaskBloc extends Bloc<GetTaskEvent, GetTaskState> {
   GetTaskBloc({required this.getAllTasksUseCase}) : super(TaskInitialState()) {
     on<GetTasksEvent>((event, emit) async {
       emit(TaskLoadingState());
-      final tasks = await getAllTasksUseCase();
-      tasks.fold(
-        (error) {
-          emit(TaskErrorState(messageError: error));
-        },
-        (tasks) {
-          emit(TaskLoadedState(tasks: tasks));
-        },
-      );
+      handleOperation(emit: emit);
     });
+    on<UpdateTasksEvent>((event, emit) async {
+      handleOperation(emit: emit);
+    });
+  }
+  Future<void> handleOperation({required Emitter<GetTaskState> emit}) async {
+    final tasks = await getAllTasksUseCase();
+    tasks.fold(
+      (error) {
+        emit(TaskErrorState(messageError: error));
+      },
+      (tasks) {
+        emit(TaskLoadedState(tasks: tasks));
+      },
+    );
   }
 }

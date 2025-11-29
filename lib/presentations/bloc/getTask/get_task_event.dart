@@ -4,3 +4,5 @@ part of 'get_task_bloc.dart';
 sealed class GetTaskEvent {}
 
 class GetTasksEvent extends GetTaskEvent {}
+
+class UpdateTasksEvent extends GetTaskEvent {}
