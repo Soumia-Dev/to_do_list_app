@@ -42,9 +42,10 @@ class TaskRepositoryImp implements TaskRepository {
   }
 
   @override
-  Future<Either<String, Unit>> deleteTask(int id) async {
+  Future<Either<String, Unit>> deleteTask(Set<int> ids) async {
     try {
-      await locale.deleteTask(id);
+      await locale.deleteTask(ids);
+
       return Right(unit);
     } catch (e) {
       return Left(e.toString());

@@ -21,7 +21,7 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       hiveTitle: fields[1] as String,
       hiveDescription: fields[2] as String,
       hiveCreatedAt: fields[3] as DateTime,
-      hiveUpdatedAt: fields[4] as DateTime,
+      hiveDoneAt: fields[4] as DateTime?,
       hiveIsDone: fields[5] as bool,
     );
   }
@@ -39,7 +39,7 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       ..writeByte(3)
       ..write(obj.hiveCreatedAt)
       ..writeByte(4)
-      ..write(obj.hiveUpdatedAt)
+      ..write(obj.hiveDoneAt)
       ..writeByte(5)
       ..write(obj.hiveIsDone);
   }
