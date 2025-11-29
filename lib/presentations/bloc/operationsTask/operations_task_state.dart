@@ -8,8 +8,8 @@ final class OperationsTaskInitial extends OperationsTaskState {}
 final class LoadingOperationState extends OperationsTaskState {}
 
 final class SuccessfulOperation extends OperationsTaskState {
-  final String successfulMessage;
-  SuccessfulOperation({required this.successfulMessage});
+  final String successMessage;
+  SuccessfulOperation({required this.successMessage});
 }
 
 final class ErrorOperation extends OperationsTaskState {

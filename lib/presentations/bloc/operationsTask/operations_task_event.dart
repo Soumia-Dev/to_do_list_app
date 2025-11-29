@@ -14,6 +14,6 @@ class UpdateTasksEvent extends OperationsTaskEvent {
 }
 
 class DeleteTasksEvent extends OperationsTaskEvent {
-  final int id;
-  DeleteTasksEvent({required this.id});
+  final Set<int> ids;
+  DeleteTasksEvent({required this.ids});
 }

@@ -37,7 +37,7 @@ class OperationsTaskBloc
     on<DeleteTasksEvent>((event, emit) async {
       await handleOperation(
         emit: emit,
-        operation: () => deleteTaskUseCase(event.id),
+        operation: () => deleteTaskUseCase(event.ids),
         successMsg: "Task deleted successfully",
       );
     });
@@ -51,7 +51,7 @@ class OperationsTaskBloc
     final result = await operation();
     result.fold(
       (error) => emit(ErrorOperation(errorMessage: error)),
-      (_) => emit(SuccessfulOperation(successfulMessage: successMsg)),
+      (_) => emit(SuccessfulOperation(successMessage: successMsg)),
     );
   }
 }
