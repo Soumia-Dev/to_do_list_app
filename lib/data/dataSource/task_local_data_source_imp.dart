@@ -9,7 +9,10 @@ class TaskLocalDataSourceImp implements TaskLocalDataSource {
 
   @override
   Future<List<TaskModel>> getTasks() async {
-    return box.values.toList();
+    return box.keys.map((key) {
+      final TaskModel model = box.get(key)!;
+      return model.changeId(key);
+    }).toList();
   }
 
   @override
@@ -23,7 +26,7 @@ class TaskLocalDataSourceImp implements TaskLocalDataSource {
   }
 
   @override
-  Future<void> deleteTask(int id) async {
-    await box.delete(id);
+  Future<void> deleteTask(Set<int> ids) async {
+    await box.deleteAll(ids);
   }
 }
