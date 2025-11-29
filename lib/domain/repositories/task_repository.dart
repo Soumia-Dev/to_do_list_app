@@ -5,5 +5,5 @@ abstract class TaskRepository {
   Future<Either<String, List<TaskEntity>>> getAllTasks();
   Future<Either<String, Unit>> addTask(TaskEntity taskEntity);
   Future<Either<String, Unit>> updateTask(TaskEntity taskEntity);
-  Future<Either<String, Unit>> deleteTask(int id);
+  Future<Either<String, Unit>> deleteTask(Set<int> ids);
 }
