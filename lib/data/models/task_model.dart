@@ -14,7 +14,7 @@ class TaskModel extends HiveObject {
   @HiveField(3)
   final DateTime hiveCreatedAt;
   @HiveField(4)
-  final DateTime hiveUpdatedAt;
+  final DateTime? hiveDoneAt;
   @HiveField(5)
   final bool hiveIsDone;
 
@@ -23,28 +23,39 @@ class TaskModel extends HiveObject {
     required this.hiveTitle,
     required this.hiveDescription,
     required this.hiveCreatedAt,
-    required this.hiveUpdatedAt,
+    required this.hiveDoneAt,
     required this.hiveIsDone,
   });
 
   factory TaskModel.fromEntity(TaskEntity entity) {
     return TaskModel(
+      hiveId: entity.id,
       hiveTitle: entity.title,
       hiveDescription: entity.description,
       hiveCreatedAt: entity.createdAt,
-      hiveUpdatedAt: entity.updatedAt,
+      hiveDoneAt: entity.doneAt,
       hiveIsDone: entity.isDone,
     );
   }
-
   TaskEntity toEntity() {
     return TaskEntity(
       id: hiveId,
       title: hiveTitle,
       description: hiveDescription,
       createdAt: hiveCreatedAt,
-      updatedAt: hiveUpdatedAt,
+      doneAt: hiveDoneAt,
       isDone: hiveIsDone,
+    );
+  }
+
+  TaskModel changeId(int hiveId) {
+    return TaskModel(
+      hiveId: hiveId,
+      hiveTitle: hiveTitle,
+      hiveDescription: hiveDescription,
+      hiveCreatedAt: hiveCreatedAt,
+      hiveDoneAt: hiveDoneAt,
+      hiveIsDone: hiveIsDone,
     );
   }
 }
