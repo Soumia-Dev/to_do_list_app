@@ -5,7 +5,6 @@ import 'package:to_do_list_app/domain/entities/task_entity.dart';
 import 'package:to_do_list_app/presentations/bloc/operationsTask/operations_task_bloc.dart'
     hide UpdateTasksEvent;
 import 'package:to_do_list_app/presentations/pages/addUpdate/form_task.dart';
-import 'package:to_do_list_app/presentations/pages/homeTask/home_tasks.dart';
 
 import '../../bloc/getTask/get_task_bloc.dart';
 
@@ -20,10 +19,7 @@ class AddUpdateTaskWidgets {
           if (state is SuccessfulOperation) {
             widgets.buildSnackBar(context, state.successMessage, Colors.green);
             context.read<GetTaskBloc>().add(UpdateTasksEvent());
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (_) => HomeTasks()),
-              (route) => false,
-            );
+            Navigator.of(context).pop();
           } else if (state is ErrorOperation) {
             widgets.buildSnackBar(
               context,

@@ -53,7 +53,7 @@ class _FormTaskState extends State<FormTask> {
 
   void onTaskDone() {
     final task = widget.taskEntity!.toggleDone();
-    context.read<OperationsTaskBloc>().add(UpdateTasksEvent(taskEntity: task));
+    context.read<OperationsTaskBloc>().add(DoneTaskEvent(taskEntity: task));
   }
 
   @override
@@ -70,9 +70,9 @@ class _FormTaskState extends State<FormTask> {
                 widget.isUpdate ? "Update Task" : "Create New Task",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 26,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  color: Colors.greenAccent,
                 ),
               ),
               SizedBox(height: 30),
@@ -82,6 +82,7 @@ class _FormTaskState extends State<FormTask> {
                 icon: Icons.title,
                 validatorText: "Please enter the task title",
                 maxLines: 1,
+                maxLength: 20,
               ),
               SizedBox(height: 20),
               buildTextField(
@@ -90,13 +91,17 @@ class _FormTaskState extends State<FormTask> {
                 icon: Icons.description,
                 validatorText: "Please enter the task description",
                 maxLines: 5,
+                maxLength: 100,
               ),
               SizedBox(height: 50),
               buildBtn(onSubmit, widget.isUpdate ? "Update Task" : "Add Task"),
               if (widget.isUpdate)
-                widget.taskEntity!.isDone
-                    ? buildBtn(onTaskDone, "restart the task")
-                    : buildBtn(onTaskDone, "complete the task"),
+                buildBtn(
+                  onTaskDone,
+                  widget.taskEntity!.isDone
+                      ? "restart the task"
+                      : "complete the task",
+                ),
             ],
           ),
         ),
@@ -110,10 +115,12 @@ class _FormTaskState extends State<FormTask> {
     required IconData icon,
     required String validatorText,
     required int maxLines,
+    required int maxLength,
   }) {
     return TextFormField(
       controller: controller,
       maxLines: maxLines,
+      maxLength: maxLength,
       validator: (v) {
         if (v == null || v.isEmpty) {
           return validatorText;
@@ -122,31 +129,36 @@ class _FormTaskState extends State<FormTask> {
       },
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: Colors.deepPurple),
+        prefixIcon: Icon(icon, color: Colors.greenAccent),
         filled: true,
         fillColor: Colors.white.withOpacity(0.15),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+          borderSide: BorderSide(color: Colors.greenAccent, width: 2),
         ),
       ),
     );
   }
 
   Widget buildBtn(Function onSubmit, String textBtn) {
-    return ElevatedButton(
-      onPressed: () => onSubmit(),
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 15),
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 8,
-      ),
-      child: Text(
-        textBtn,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: ElevatedButton(
+        onPressed: () => onSubmit(),
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 15),
+          backgroundColor: Colors.greenAccent,
+          foregroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 8,
+        ),
+        child: Text(
+          textBtn,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
