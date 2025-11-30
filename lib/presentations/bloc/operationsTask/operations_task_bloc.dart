@@ -41,7 +41,15 @@ class OperationsTaskBloc
         successMsg: "Task deleted successfully",
       );
     });
+    on<DoneTaskEvent>((event, emit) async {
+      await handleOperation(
+        emit: emit,
+        operation: () => updateTaskUseCase(event.taskEntity),
+        successMsg: "Task is refreched",
+      );
+    });
   }
+
   Future<void> handleOperation({
     required Emitter<OperationsTaskState> emit,
     required Future<Either<String, Unit>> Function() operation,

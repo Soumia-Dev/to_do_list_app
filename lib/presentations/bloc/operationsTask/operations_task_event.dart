@@ -13,6 +13,11 @@ class UpdateTasksEvent extends OperationsTaskEvent {
   UpdateTasksEvent({required this.taskEntity});
 }
 
+class DoneTaskEvent extends OperationsTaskEvent {
+  final TaskEntity taskEntity;
+  DoneTaskEvent({required this.taskEntity});
+}
+
 class DeleteTasksEvent extends OperationsTaskEvent {
   final Set<int> ids;
   DeleteTasksEvent({required this.ids});
