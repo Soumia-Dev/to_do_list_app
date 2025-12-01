@@ -14,7 +14,7 @@ class GetTaskBloc extends Bloc<GetTaskEvent, GetTaskState> {
       emit(TaskLoadingState());
       handleOperation(emit: emit);
     });
-    on<UpdateTasksEvent>((event, emit) async {
+    on<RefreshTasksEvent>((event, emit) async {
       handleOperation(emit: emit);
     });
   }

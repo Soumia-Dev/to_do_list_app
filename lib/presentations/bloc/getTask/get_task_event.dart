@@ -5,4 +5,4 @@ sealed class GetTaskEvent {}
 
 class GetTasksEvent extends GetTaskEvent {}
 
-class UpdateTasksEvent extends GetTaskEvent {}
+class RefreshTasksEvent extends GetTaskEvent {}
