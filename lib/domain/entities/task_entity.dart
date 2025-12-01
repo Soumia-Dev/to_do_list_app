@@ -26,7 +26,7 @@ class TaskEntity {
       title: title ?? this.title,
       description: description ?? this.description,
       createdAt: createdAt,
-      doneAt: doneAt,
+      doneAt: doneAt ?? this.doneAt,
       isDone: isDone ?? this.isDone,
     );
   }
