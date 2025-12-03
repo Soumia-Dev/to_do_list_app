@@ -89,11 +89,7 @@ class HomeTasksWidgets {
         ? Expanded(
             child: Column(
               children: [
-                SizedBox(height: 100),
-                SizedBox(
-                  height: 250,
-                  child: Lottie.asset("assets/lottie/done.json"),
-                ),
+                Lottie.asset("assets/lottie/done.json"),
                 Text("You have done all the task !👌"),
               ],
             ),
