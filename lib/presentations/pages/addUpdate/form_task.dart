@@ -37,6 +37,7 @@ class _FormTaskState extends State<FormTask> {
         title: title,
         description: description,
       );
+
       context.read<OperationsTaskBloc>().add(
         UpdateTasksEvent(taskEntity: updated),
       );
@@ -53,7 +54,12 @@ class _FormTaskState extends State<FormTask> {
 
   void onTaskDone() {
     final task = widget.taskEntity!.toggleDone();
-    context.read<OperationsTaskBloc>().add(DoneTaskEvent(taskEntity: task));
+    final state = widget.taskEntity!.isDone
+        ? "the task is undone"
+        : "the task is done";
+    context.read<OperationsTaskBloc>().add(
+      DoneTaskEvent(taskEntity: task, refreshState: state),
+    );
   }
 
   @override
@@ -72,7 +78,7 @@ class _FormTaskState extends State<FormTask> {
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: Colors.greenAccent,
+                  color: Colors.lightBlue.shade300,
                 ),
               ),
               SizedBox(height: 30),
@@ -91,7 +97,7 @@ class _FormTaskState extends State<FormTask> {
                 icon: Icons.description,
                 validatorText: "Please enter the task description",
                 maxLines: 5,
-                maxLength: 100,
+                maxLength: 150,
               ),
               SizedBox(height: 50),
               buildBtn(onSubmit, widget.isUpdate ? "Update Task" : "Add Task"),
@@ -129,13 +135,13 @@ class _FormTaskState extends State<FormTask> {
       },
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: Colors.greenAccent),
+        prefixIcon: Icon(icon, color: Colors.lightBlue.shade300),
         filled: true,
         fillColor: Colors.white.withOpacity(0.15),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: Colors.greenAccent, width: 2),
+          borderSide: BorderSide(color: Colors.lightBlue.shade300, width: 2),
         ),
       ),
     );
@@ -148,7 +154,7 @@ class _FormTaskState extends State<FormTask> {
         onPressed: () => onSubmit(),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 15),
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: Colors.lightBlue.shade300,
           foregroundColor: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
@@ -157,7 +163,7 @@ class _FormTaskState extends State<FormTask> {
         ),
         child: Text(
           textBtn,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
         ),
       ),
     );

@@ -13,7 +13,7 @@ class HomeTasks extends StatelessWidget {
 
   HomeTasks({super.key});
   Future<void> onRefresh(BuildContext context) async {
-    BlocProvider.of<GetTaskBloc>(context).add(UpdateTasksEvent());
+    BlocProvider.of<GetTaskBloc>(context).add(RefreshTasksEvent());
   }
 
   void navigationToAddOrUpdate(

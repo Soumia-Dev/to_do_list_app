@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:to_do_list_app/presentations/bloc/operationsTask/operations_task_bloc.dart'
-    hide UpdateTasksEvent;
-import 'package:to_do_list_app/presentations/bloc/selectionTask/selection_task_bloc.dart';
 
 import '../../../domain/entities/task_entity.dart';
 import '../../bloc/getTask/get_task_bloc.dart';
+import '../../bloc/operationsTask/operations_task_bloc.dart';
+import '../../bloc/selectionTask/selection_task_bloc.dart';
 
 class HomeTasksWidgets {
   Widget buildDeleteIcon() =>
@@ -20,7 +19,7 @@ class HomeTasksWidgets {
                     context.read<OperationsTaskBloc>().add(
                       DeleteTasksEvent(ids: state.selectedTaskIds),
                     );
-                    context.read<GetTaskBloc>().add(UpdateTasksEvent());
+                    context.read<GetTaskBloc>().add(RefreshTasksEvent());
                     context.read<SelectionTaskBloc>().add(
                       ClearTaskSelectionEvent(),
                     );
@@ -40,38 +39,42 @@ class HomeTasksWidgets {
       width: double.infinity,
       height: 100,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: 50,
-            height: 50,
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.black38,
-              value:
-                  doneTasks(state.tasks.toList()) /
-                  valueIndicator(state.tasks.toList()),
-              valueColor: const AlwaysStoppedAnimation(Colors.greenAccent),
-            ),
-          ),
-          const SizedBox(width: 30),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                "My Tasks",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  color: Colors.greenAccent,
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.black38,
+                  value:
+                      doneTasks(state.tasks.toList()) /
+                      valueIndicator(state.tasks.toList()),
+                  valueColor: AlwaysStoppedAnimation(Colors.lightBlue.shade300),
                 ),
               ),
-              Text(
-                "${doneTasks(state.tasks.toList())} of ${state.tasks.length} Task",
+              const SizedBox(width: 30),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "My Tasks",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.lightBlue.shade300,
+                    ),
+                  ),
+                  Text(
+                    "${doneTasks(state.tasks.toList())} of ${state.tasks.length} Task",
+                  ),
+                ],
               ),
             ],
           ),
-          SizedBox(width: 120),
           buildDeleteIcon(),
         ],
       ),
@@ -85,13 +88,13 @@ class HomeTasksWidgets {
     return state.tasks.isEmpty
         ? Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Lottie.asset("assets/lottie/1.json"),
-                const Expanded(
-                  flex: 3,
-                  child: Text("You have done all the task !👌"),
+                SizedBox(height: 100),
+                SizedBox(
+                  height: 250,
+                  child: Lottie.asset("assets/lottie/done.json"),
                 ),
+                Text("You have done all the task !👌"),
               ],
             ),
           )
@@ -112,7 +115,7 @@ class HomeTasksWidgets {
                           padding: EdgeInsets.all(20),
                           margin: EdgeInsets.symmetric(
                             horizontal: 15,
-                            vertical: 5,
+                            vertical: 10,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
@@ -132,7 +135,7 @@ class HomeTasksWidgets {
                             color: isSelected
                                 ? Colors.red.shade50
                                 : task.isDone
-                                ? Colors.greenAccent.shade100
+                                ? Colors.lightBlue.shade100
                                 : Colors.grey.shade50,
                           ),
                           child: InkWell(
@@ -178,12 +181,13 @@ class HomeTasksWidgets {
                                               : null,
                                         ),
                                       ),
+                                      SizedBox(height: 10),
                                       Row(
                                         children: [
                                           Icon(
                                             Icons.calendar_today,
                                             size: 16,
-                                            color: Colors.greenAccent,
+                                            color: Colors.lightBlue.shade600,
                                           ),
                                           SizedBox(width: 6),
                                           Text(
@@ -216,8 +220,8 @@ class HomeTasksWidgets {
                             right: 10,
                             child: Icon(
                               Icons.done,
-                              color: Colors.green,
-                              size: 40,
+                              color: Colors.lightBlue.shade600,
+                              size: 50,
                             ),
                           ),
                       ],
@@ -234,8 +238,9 @@ class HomeTasksWidgets {
     Function(BuildContext, bool, TaskEntity?) navigation,
   ) {
     return FloatingActionButton(
+      backgroundColor: Colors.white,
       onPressed: () => navigation(context, false, null),
-      child: Icon(Icons.add, color: Colors.black),
+      child: Icon(Icons.add, color: Colors.lightBlueAccent),
     );
   }
 }

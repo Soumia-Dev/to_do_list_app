@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list_app/core/widgets.dart';
 import 'package:to_do_list_app/domain/entities/task_entity.dart';
-import 'package:to_do_list_app/presentations/bloc/operationsTask/operations_task_bloc.dart'
-    hide UpdateTasksEvent;
+import 'package:to_do_list_app/presentations/bloc/operationsTask/operations_task_bloc.dart';
 import 'package:to_do_list_app/presentations/pages/addUpdate/form_task.dart';
 
 import '../../bloc/getTask/get_task_bloc.dart';
@@ -18,7 +17,7 @@ class AddUpdateTaskWidgets {
         listener: (context, state) {
           if (state is SuccessfulOperation) {
             widgets.buildSnackBar(context, state.successMessage, Colors.green);
-            context.read<GetTaskBloc>().add(UpdateTasksEvent());
+            context.read<GetTaskBloc>().add(RefreshTasksEvent());
             Navigator.of(context).pop();
           } else if (state is ErrorOperation) {
             widgets.buildSnackBar(
