@@ -15,7 +15,8 @@ class UpdateTasksEvent extends OperationsTaskEvent {
 
 class DoneTaskEvent extends OperationsTaskEvent {
   final TaskEntity taskEntity;
-  DoneTaskEvent({required this.taskEntity});
+  final String refreshState;
+  DoneTaskEvent({required this.taskEntity, required this.refreshState});
 }
 
 class DeleteTasksEvent extends OperationsTaskEvent {

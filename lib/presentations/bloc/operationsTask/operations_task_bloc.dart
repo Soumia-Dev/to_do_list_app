@@ -45,7 +45,7 @@ class OperationsTaskBloc
       await handleOperation(
         emit: emit,
         operation: () => updateTaskUseCase(event.taskEntity),
-        successMsg: "Task is refreched",
+        successMsg: event.refreshState,
       );
     });
   }
@@ -56,10 +56,15 @@ class OperationsTaskBloc
     required String successMsg,
   }) async {
     emit(LoadingOperationState());
-    final result = await operation();
-    result.fold(
-      (error) => emit(ErrorOperation(errorMessage: error)),
-      (_) => emit(SuccessfulOperation(successMessage: successMsg)),
-    );
+    try {
+      final result = await operation();
+      if (result.isLeft()) {
+        emit(ErrorOperation(errorMessage: "please try again !"));
+      } else {
+        emit(SuccessfulOperation(successMessage: successMsg));
+      }
+    } catch (e) {
+      emit(ErrorOperation(errorMessage: e.toString()));
+    }
   }
 }
