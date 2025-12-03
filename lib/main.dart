@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:to_do_list_app/data/models/task_model.dart';
 import 'package:to_do_list_app/presentations/bloc/getTask/get_task_bloc.dart';
 import 'package:to_do_list_app/presentations/bloc/operationsTask/operations_task_bloc.dart';
 import 'package:to_do_list_app/presentations/bloc/selectionTask/selection_task_bloc.dart';
 import 'package:to_do_list_app/presentations/pages/homeTask/home_tasks.dart';
 
 import 'core/dependency_injection.dart' as di;
+import 'data/models/task_model.dart';
 
 Future<void> main() async {
   //hive init
@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<OperationsTaskBloc>()),
         BlocProvider(create: (context) => SelectionTaskBloc()),
       ],
-      child: MaterialApp(home: HomeTasks()),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: HomeTasks()),
     );
   }
 }
