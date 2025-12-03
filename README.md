@@ -18,10 +18,10 @@ A modern and clean Flutter To-Do List Application that helps users organize task
 ## ✨Some ScreenShots
 
 <p align="center">
-  <img src="assets/screenshots/Screenshot_1.png" width="250" style="margin: 5px;" alt="01">
-  <img src="assets/screenshots/Screenshot_2.png" width="250" style="margin: 5px;" alt="02">
-  <img src="assets/screenshots/Screenshot_3.png" width="250" style="margin: 5px;" alt="03">
+  <img src="assets/screenshots/Screenshot_1.png" width="200" style="margin: 5px;" alt="01">
+  <img src="assets/screenshots/Screenshot_2.png" width="200" style="margin: 5px;" alt="02">
+  <img src="assets/screenshots/Screenshot_3.png" width="200" style="margin: 5px;" alt="03">
 </p>
 <p align="center">
-  <img src="assets/screenshots/Screenshot_4.png" width="250" style="margin: 5px;" alt="01">
+  <img src="assets/screenshots/Screenshot_4.png" width="200" style="margin: 5px;" alt="01">
 </p>
