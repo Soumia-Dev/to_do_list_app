@@ -9,25 +9,58 @@ import '../../bloc/operationsTask/operations_task_bloc.dart';
 import '../../bloc/selectionTask/selection_task_bloc.dart';
 
 class HomeTasksWidgets {
-  Widget buildDeleteIcon() =>
-      BlocBuilder<SelectionTaskBloc, SelectionTaskState>(
-        builder: (context, state) {
-          return state.selectedTaskIds.isEmpty
-              ? SizedBox.shrink()
-              : IconButton(
-                  onPressed: () {
-                    context.read<OperationsTaskBloc>().add(
-                      DeleteTasksEvent(ids: state.selectedTaskIds),
-                    );
-                    context.read<GetTaskBloc>().add(RefreshTasksEvent());
-                    context.read<SelectionTaskBloc>().add(
-                      ClearTaskSelectionEvent(),
+  Widget
+  buildDeleteIcon() => BlocBuilder<SelectionTaskBloc, SelectionTaskState>(
+    builder: (context, state) {
+      return state.selectedTaskIds.isEmpty
+          ? SizedBox.shrink()
+          : IconButton(
+              icon: const Icon(Icons.delete, color: Colors.redAccent),
+              onPressed: () async {
+                final confirm = await showDialog<bool>(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Delete Tasks!"),
+                      content: const Text(
+                        "Are you sure you want to delete the selected task(s)?",
+                      ),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () => Navigator.pop(context, false),
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => Navigator.pop(context, true),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          child: const Text(
+                            "Delete",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
                     );
                   },
-                  icon: Icon(Icons.delete, color: Colors.redAccent),
                 );
-        },
-      );
+
+                if (confirm == true) {
+                  context.read<OperationsTaskBloc>().add(
+                    DeleteTasksEvent(ids: state.selectedTaskIds),
+                  );
+                  context.read<GetTaskBloc>().add(RefreshTasksEvent());
+                  context.read<SelectionTaskBloc>().add(
+                    ClearTaskSelectionEvent(),
+                  );
+                }
+              },
+            );
+    },
+  );
 
   Widget analyseTask(
     Function doneTasks,
