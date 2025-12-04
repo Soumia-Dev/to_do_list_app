@@ -24,4 +24,6 @@ A modern and clean Flutter To-Do List Application that helps users organize task
 </p>
 <p align="center">
   <img src="assets/screenshots/Screenshot_4.png" width="250" style="margin: 5px;" alt="01">
+  <img src="assets/screenshots/Screenshot_5.png" width="250" style="margin: 5px;" alt="01">
+
 </p>
